@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Jeopardy Web App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <h1>Find trivia questions</h1>
+
+    <div class="col">
+        <div class="row">
+            <div class="input-field col s8">
+              <input id="category" type="text">
+              <label for="category">What topic are you curious about?</label>
+            </div>
+
+            <div class="input-field col s4">
+                <select id="difficulty">
+                    <option value="">Default</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+                <label>Difficulty</label>
+            </div>
+
+            <div class="input-field col s3">
+                <input id="startDate" type="text" class="datepicker">
+                <label for="startDate">Filter by date</label>
+            </div>
+
+            <div class="input-field col s3">
+                <input id="endDate" type="text" class="datepicker">
+            </div>
+
+            <button type="submit" class="submit waves-effect waves-light btn-large">Submit</button>
+        </div>
+
+        <div class="list">
+
+        </div>
+    </div>
+</div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script src="moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-range/4.0.2/moment-range.js"></script>
+<script src="main.js"></script>
+
+</html>
