@@ -4,6 +4,7 @@
     <title>Jeopardy Web App</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
 
@@ -12,12 +13,12 @@
 
     <div class="col">
         <div class="row">
-            <div class="input-field col s8">
+            <div class="input-field col s6">
               <input id="category" type="text">
               <label for="category">What topic are you curious about?</label>
             </div>
 
-            <div class="input-field col s4">
+            <div class="input-field col s2">
                 <select id="difficulty">
                     <option value="">Default</option>
                     <option value="easy">Easy</option>
@@ -27,20 +28,21 @@
                 <label>Difficulty</label>
             </div>
 
-            <div class="input-field col s3">
+            <div class="input-field col s2">
                 <input id="startDate" type="text" class="datepicker">
-                <label for="startDate">Filter by date</label>
+                <label for="startDate">Start Date</label>
             </div>
 
-            <div class="input-field col s3">
+            <div class="input-field col s2">
                 <input id="endDate" type="text" class="datepicker">
+                <label for="startDate">End Date</label>
             </div>
 
-            <button type="submit" class="submit waves-effect waves-light btn-large">Submit</button>
+            <button type="submit" class="submit waves-effect waves-light btn-large">Search<i class="material-icons right">search</i></button>
         </div>
 
+        <h3 class="numList"></h3>
         <div class="list">
-
         </div>
     </div>
 </div>

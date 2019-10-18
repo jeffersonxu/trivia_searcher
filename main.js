@@ -56,49 +56,64 @@ function search(category, difficultyValue, startDate, endDate){
     let bounds = getBounds(difficultyValue);
     let lower = bounds[0], upper = bounds[1];
 
-    $.get(url + 'clues', function(data, status){
-        data.forEach(function(element){
-            let correctCategory = element.category.title.toLowerCase().includes(category.toLowerCase());
-            let correctBounds = element.value >= lower && element.value <= upper;
-            let correctDate = moment(element.airdate).isBetween(startDate, endDate);
+    $.ajax({
+        url: url + 'clues',
+        type: 'GET',
+        success: function(data){
+            let count = 0;
+            data.forEach(function(element){
+                let correctCategory = element.category.title.toLowerCase().includes(category.toLowerCase());
+                let correctBounds = element.value >= lower && element.value <= upper;
+                let correctDate = moment(element.airdate).isBetween(startDate, endDate);
 
-            if(element.question !== "" && correctCategory && correctBounds && correctDate){
-                let card = $('<div>', { class: 'card blue-grey darken-1'});
-                card.append(
-                    $('<div>', {class: 'card-content white-text'}).append(
-                        $('<span>', {
-                            class: 'card-title activator',
-                            text: element.question
-                        }).append(
-                            $('<i>', {
-                                class: 'material-icons right',
-                                text: 'more_vert'
-                            }))).append(
-                    $('<p>', {
-                        text: 'Aired: ' + moment(element.airdate).format('MMMM Do, YYYY')
-                    })));
+                if(element.question !== "" && correctCategory && correctBounds && correctDate){
+                    let card = $('<div>', { class: 'card blue-grey darken-1'});
+                    card.append(
+                        $('<div>', {class: 'card-content white-text'}).append(
+                            $('<span>', {
+                                class: 'card-title activator',
+                                text: element.question
+                            }).append(
+                                $('<i>', {
+                                    class: 'material-icons right',
+                                    text: 'more_vert'
+                                }))).append(
+                        $('<p>', {
+                            text: 'Aired: ' + moment(element.airdate).format('MMMM Do, YYYY')
+                        })));
 
-                card.append(
-                    $('<div>', { class: 'card-reveal'}).append(
-                        $('<span>', {
-                            class: 'card-title',
-                            text: 'Answer: ' + element.answer.replace('<i>', '').replace('</i>', '').capitalize()
-                        }).append(
-                            $('<i>', {
-                                class: 'material-icons right',
-                                text: 'close'
-                            }))
-                        ).append(
-                            $('<p>', {text: 'Difficulty: ' + difficulty(element.value)})).append(
-                            $('<p>', {text: 'Category: ' + element.category.title.capitalize()})));
+                    card.append(
+                        $('<div>', { class: 'card-reveal'}).append(
+                            $('<span>', {
+                                class: 'card-title',
+                                text: 'Answer: ' + element.answer.replace('<i>', '').replace('</i>', '').capitalize()
+                            }).append(
+                                $('<i>', {
+                                    class: 'material-icons right',
+                                    text: 'close'
+                                }))
+                            ).append(
+                                $('<p>', {text: 'Difficulty: ' + difficulty(element.value)})).append(
+                                $('<p>', {text: 'Category: ' + element.category.title.capitalize() } )));
 
-                $('.list').append(
-                    $('<div>', {
-                        class: 'row'
-                    }).append(card)
-
-                )
-            }
+                    $('.list').append($('<div>', { class: 'row' }).append(card));
+                    count++;
+                }
         });
-    });
+
+        if(count === 0){
+            $('.list').append(
+                $('<div>', {class: 'row error red darken-4 white-text'}).append(
+                    $('<p>', {
+                        class: 'col s12',
+                        text: "Sorry we couldn't find any trivia questions that matched your search criteria. Try again?"
+                    }
+                )).append(
+                    $('<i>', {
+                        class: 'medium material-icons',
+                        text: 'sentiment_very_dissatisfied'
+                    })));
+        } else
+            $('.numList').text(count + (count == 1 ? ' Entry' : ' Entries'));
+    }});
 }

@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,600&display=swap');
+
+html {
+    font-family: 'Nunito', sans-serif;
+}
+
+h1{
+    font-weight: 600
+}
+
+.error{
+    text-align: center;
+    font-size: 2em;
+    padding: 0.75em;
+    border-radius: 1em;
+}
