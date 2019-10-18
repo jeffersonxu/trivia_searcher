@@ -79,15 +79,16 @@ function search(category, difficultyValue, startDate, endDate){
                                 $('<i>', {
                                     class: 'activator material-icons right white-text',
                                     text: 'more_vert'
-                                })).append( $('<a>', {class: ""}).append(
-                                $('<i>', {
-                                    id: 'fav-' + element.id,
-                                    class: 'right material-icons favorite',
-                                    text: 'favorite_border'
-                                })))).append(
-                        $('<p>', {
-                            text: 'Aired: ' + moment(element.airdate).format('MMMM Do, YYYY')
-                        })));
+                                    })).append(
+                                    $('<a>').append(
+                                        $('<i>', {
+                                            id: 'fav-' + element.id,
+                                            class: 'right material-icons favorite',
+                                            text: 'favorite_border'
+                                        })))).append(
+                                    $('<p>', {
+                                        text: 'Aired: ' + moment(element.airdate).format('MMMM Do, YYYY')
+                                    })));
 
                     card.append(
                         $('<div>', { class: 'card-reveal'}).append(
@@ -100,8 +101,9 @@ function search(category, difficultyValue, startDate, endDate){
                                     text: 'close'
                                 }))
                             ).append(
-                                $('<p>', {text: 'Difficulty: ' + difficulty(element.value)})).append(
-                                $('<p>', {text: 'Category: ' + element.category.title.capitalize() } )));
+                                $('<p>', {text: 'Difficulty: ' + difficulty(element.value)} ).append(
+                                    $('<span>', {class: 'category', text: 'Category: ' + element.category.title.capitalize()}).append(
+                                        ))));
 
                     $('.list').append($('<div>', { id: element.id, class: 'row' }).append(card));
                     count++;

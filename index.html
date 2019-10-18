@@ -42,7 +42,7 @@
         <button type="submit" class="submit waves-effect waves-light btn-large">Search<i class="material-icons right">search</i></button>
     </div>
 
-    <div class="row">
+    <div class="panel row">
         <ul class="tabs">
             <li class="tab col s6"><a href="#listWrapper">Entries</a></li>
             <li class="tab col s6"><a href="#favorite">Favorites</a></li>
@@ -52,12 +52,19 @@
     <div id="listWrapper">
         <h3 class="numList"></h3>
         <div class="list">
+            <div class="row orange darken-1 white-text default">
+               <p class="col s12">There are no entries currently. Try searching for something!</p>
+            </div>
         </div>
     </div>
 
     <div id="favorite">
         <h3 class="numFavorited"></h3>
+        <div class="row orange darken-1 white-text default no-fav">
+           <p class="col s12">You haven't favorited any questions. Click on the heart next to your favorite questions!</p>
+        </div>
     </div>
+
 </div>
 </body>
 

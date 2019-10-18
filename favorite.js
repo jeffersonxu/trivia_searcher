@@ -13,6 +13,7 @@ $('.list').on('click', '.favorite', function(event){
     //Update Count
     numFavorited++;
     $('.numFavorited').text(numFavorited + (numFavorited == 1 ? ' Entry' : ' Entries'));
+    $('.no-fav').hide();
 });
 
 //Unfavorited
@@ -28,8 +29,10 @@ $('.list').on('click', '.favorite_selected', function(event){
 
     //Update Count
     numFavorited--;
-    if(numFavorited == 0)
-        $('.numFavorited').remove();
+    if(numFavorited == 0){
+        $('.numFavorited').empty();
+        $('no-fav').css('display', '');
+    }
      else
         $('.numFavorited').text(numFavorited + (numFavorited == 1 ? ' Entry' : ' Entries'));
 });
@@ -51,8 +54,11 @@ $('#favorite').on('click', '.favorite_selected', function(event){
 
     //Update Count
     numFavorited--;
-    if(numFavorited == 0)
-        $('.numFavorited').remove();
+    if(numFavorited == 0){
+        $('.numFavorited').empty();
+        $('no-fav').css('display', '');
+        console.log('hide div');
+    }
     else
         $('.numFavorited').text(numFavorited + (numFavorited == 1 ? ' Entry' : ' Entries'));
 });
