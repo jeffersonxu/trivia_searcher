@@ -1,5 +1,4 @@
 const url = "http://jservice.io/api/";
-window['moment-range'].extendMoment(moment);
 
 //initialize Materialize components
 $(document).ready(function(){
