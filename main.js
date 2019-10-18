@@ -6,6 +6,7 @@ $(document).ready(function(){
     $('.datepicker').datepicker({
         yearRange: [1964, 2019]
     });
+    $('.tabs').tabs();
 });
 
 //helper functions
@@ -58,6 +59,7 @@ function search(category, difficultyValue, startDate, endDate){
     $.ajax({
         url: url + 'clues',
         type: 'GET',
+        datatType: 'JSON',
         success: function(data){
             let count = 0;
             data.forEach(function(element){
@@ -67,16 +69,22 @@ function search(category, difficultyValue, startDate, endDate){
 
                 if(element.question !== "" && correctCategory && correctBounds && correctDate){
                     let card = $('<div>', { class: 'card blue-grey darken-1'});
+                    let favorite = $('<a>').append()
                     card.append(
                         $('<div>', {class: 'card-content white-text'}).append(
                             $('<span>', {
-                                class: 'card-title activator',
+                                class: 'card-title row',
                                 text: element.question
                             }).append(
                                 $('<i>', {
-                                    class: 'material-icons right',
+                                    class: 'activator material-icons right white-text',
                                     text: 'more_vert'
-                                }))).append(
+                                })).append( $('<a>', {class: ""}).append(
+                                $('<i>', {
+                                    id: 'fav-' + element.id,
+                                    class: 'right material-icons favorite',
+                                    text: 'favorite_border'
+                                })))).append(
                         $('<p>', {
                             text: 'Aired: ' + moment(element.airdate).format('MMMM Do, YYYY')
                         })));
@@ -95,7 +103,7 @@ function search(category, difficultyValue, startDate, endDate){
                                 $('<p>', {text: 'Difficulty: ' + difficulty(element.value)})).append(
                                 $('<p>', {text: 'Category: ' + element.category.title.capitalize() } )));
 
-                    $('.list').append($('<div>', { class: 'row' }).append(card));
+                    $('.list').append($('<div>', { id: element.id, class: 'row' }).append(card));
                     count++;
                 }
         });

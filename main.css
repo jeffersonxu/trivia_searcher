@@ -8,9 +8,23 @@ h1{
     font-weight: 600
 }
 
-.error{
+.error {
     text-align: center;
     font-size: 2em;
     padding: 0.75em;
     border-radius: 1em;
+}
+
+.favorite, .favorite_selected {
+    color: #f44336;
+}
+
+.card .card-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #e1f5fe;
+}
+
+.card-reveal .card-title {
+    color: black;
 }

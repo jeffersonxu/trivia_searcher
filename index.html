@@ -11,39 +11,52 @@
 <div class="container">
     <h1>Find trivia questions</h1>
 
-    <div class="col">
-        <div class="row">
-            <div class="input-field col s6">
-              <input id="category" type="text">
-              <label for="category">What topic are you curious about?</label>
-            </div>
-
-            <div class="input-field col s2">
-                <select id="difficulty">
-                    <option value="">Default</option>
-                    <option value="easy">Easy</option>
-                    <option value="medium">Medium</option>
-                    <option value="hard">Hard</option>
-                </select>
-                <label>Difficulty</label>
-            </div>
-
-            <div class="input-field col s2">
-                <input id="startDate" type="text" class="datepicker">
-                <label for="startDate">Start Date</label>
-            </div>
-
-            <div class="input-field col s2">
-                <input id="endDate" type="text" class="datepicker">
-                <label for="startDate">End Date</label>
-            </div>
-
-            <button type="submit" class="submit waves-effect waves-light btn-large">Search<i class="material-icons right">search</i></button>
+    <div class="row">
+        <h3>Parameters</h3>
+        <p>Feel free to choose any combination of parameters you like. If you choose to have no parameters you will see all trivia questions!</p>
+        <div class="input-field col s6">
+          <input id="category" type="text">
+          <label for="category">What topic are you curious about?</label>
         </div>
 
+        <div class="input-field col s2">
+            <select id="difficulty">
+                <option value="">Default</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+            <label>Difficulty</label>
+        </div>
+
+        <div class="input-field col s2">
+            <input id="startDate" type="text" class="datepicker">
+            <label for="startDate">Start Date</label>
+        </div>
+
+        <div class="input-field col s2">
+            <input id="endDate" type="text" class="datepicker">
+            <label for="startDate">End Date</label>
+        </div>
+
+        <button type="submit" class="submit waves-effect waves-light btn-large">Search<i class="material-icons right">search</i></button>
+    </div>
+
+    <div class="row">
+        <ul class="tabs">
+            <li class="tab col s6"><a href="#listWrapper">Entries</a></li>
+            <li class="tab col s6"><a href="#favorite">Favorites</a></li>
+        </ul>
+    </div>
+
+    <div id="listWrapper">
         <h3 class="numList"></h3>
         <div class="list">
         </div>
+    </div>
+
+    <div id="favorite">
+        <h3 class="numFavorited"></h3>
     </div>
 </div>
 </body>
@@ -52,5 +65,6 @@
 <script src="lib/materialize.min.js"></script>
 <script src="lib/moment.min.js"></script>
 <script src="main.js"></script>
+<script src="favorite.js"></script>
 
 </html>
