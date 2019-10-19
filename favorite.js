@@ -17,8 +17,7 @@ $('.list').on('click', '.favorite', function(event){
 });
 
 //Unfavorited
-//Case 1: Unfavoriting via Entires tab
-$('.list').on('click', '.favorite_selected', function(event){
+$('.list', '#favorite').on('click', '.favorite_selected', function(event){
     $(this).text('favorite_border');
     $(this).removeClass('favorite_selected');
     $(this).addClass('favorite');
@@ -37,28 +36,10 @@ $('.list').on('click', '.favorite_selected', function(event){
         $('.numFavorited').text(numFavorited + (numFavorited == 1 ? ' Entry' : ' Entries'));
 });
 
-//Case 2: Unfavoriting via Favorites tab
+//Case 2: Unfavoriting via Favorites tab 
+//Toggle favorite icon in Entries tab
 $('#favorite').on('click', '.favorite_selected', function(event){
-    $(this).text('favorite_border');
-    $(this).removeClass('favorite_selected');
-    $(this).addClass('favorite');
-
-    //delete card in Favorite tab
-    let id = $(this).attr('id').replace('fav-', '');
-    $('#favorite #' + id).remove();
-
-    //Toggle favorite icon in Entries tab
     $('#listWrapper ' + '#fav-' + id).text('favorite_border');
     $('#listWrapper ' + '#fav-' + id).removeClass('favorite_selected');
     $('#listWrapper ' + '#fav-' + id).addClass('favorite');
-
-    //Update Count
-    numFavorited--;
-    if(numFavorited == 0){
-        $('.numFavorited').empty();
-        $('no-fav').css('display', '');
-        console.log('hide div');
-    }
-    else
-        $('.numFavorited').text(numFavorited + (numFavorited == 1 ? ' Entry' : ' Entries'));
 });
