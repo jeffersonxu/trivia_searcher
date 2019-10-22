@@ -27,14 +27,7 @@ $('.list').on('click', '.favorite_selected', function(event){
     let id = $(this).attr('id').replace('fav-', '');
     $('#favorite #' + id).remove();
 
-    //Update Count
-    numFavorited--;
-    if(numFavorited == 0){
-        $('.numFavorited').empty();
-        $('no-fav').css('display', '');
-    }
-     else
-        $('.numFavorited').text(numFavorited + (numFavorited == 1 ? ' Entry' : ' Entries'));
+    updateCount();
 });
 
 //Case 2: Unfavoriting via Favorites tab
@@ -52,7 +45,10 @@ $('#favorite').on('click', '.favorite_selected', function(event){
     $('#listWrapper ' + '#fav-' + id).removeClass('favorite_selected');
     $('#listWrapper ' + '#fav-' + id).addClass('favorite');
 
-    //Update Count
+    updateCount();
+});
+
+function updateCount(){
     numFavorited--;
     if(numFavorited == 0){
         $('.numFavorited').empty();
@@ -60,4 +56,4 @@ $('#favorite').on('click', '.favorite_selected', function(event){
     }
     else
         $('.numFavorited').text(numFavorited + (numFavorited == 1 ? ' Entry' : ' Entries'));
-});
+}
