@@ -13,33 +13,36 @@
 
     <div class="row">
         <h3>Parameters</h3>
-        <p>Feel free to choose any combination of parameters you like. If you choose to have no parameters you will see all trivia questions!</p>
-        <div class="input-field col s6">
-          <input id="category" type="text">
-          <label for="category">What topic are you curious about?</label>
-        </div>
+        <p>Feel free to choose any combination of parameters you like. Category is a required field. The default start date is <b>March 30th, 1964</b> (the first airing of Jeopardy) and deafult end date is today's  date of <b><span class="currentDate"></span></b> if left blank.</p>
 
-        <div class="input-field col s2">
-            <select id="difficulty">
-                <option value="">Default</option>
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-            </select>
-            <label>Difficulty</label>
-        </div>
+        <form>
+            <div class="input-field col s6">
+              <input id="category" type="text" required>
+              <label for="category">What topic are you curious about?</label>
+            </div>
 
-        <div class="input-field col s2">
-            <input id="startDate" type="text" class="datepicker">
-            <label for="startDate">Start Date</label>
-        </div>
+            <div class="input-field col s2">
+                <select id="difficulty">
+                    <option value="">Default</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+                <label>Difficulty</label>
+            </div>
 
-        <div class="input-field col s2">
-            <input id="endDate" type="text" class="datepicker">
-            <label for="startDate">End Date</label>
-        </div>
+            <div class="input-field col s2">
+                <input id="startDate" type="text" class="datepicker">
+                <label for="startDate">Start Date</label>
+            </div>
 
-        <button type="submit" class="submit waves-effect waves-light btn-large">Search<i class="material-icons right">search</i></button>
+            <div class="input-field col s2">
+                <input id="endDate" type="text" class="datepicker">
+                <label for="startDate">End Date</label>
+            </div>
+
+            <button type="submit" class="submit waves-effect waves-light btn-large">Search<i class="material-icons right">search</i></button>
+        </form>
     </div>
 
     <div class="panel row">
@@ -51,6 +54,11 @@
 
     <div id="listWrapper">
         <h3 class="numList"></h3>
+
+        <div class="progress" style="display: none;">
+            <div class="indeterminate"></div>
+        </div>
+
         <div class="list">
             <div class="row orange darken-1 white-text default">
                <p class="col s12">There are no entries currently. Try searching for something!</p>

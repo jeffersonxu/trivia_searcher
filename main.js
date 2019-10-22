@@ -7,23 +7,26 @@ $(document).ready(function(){
         yearRange: [1964, 2019]
     });
     $('.tabs').tabs();
+    $('.currentDate').text(moment().format('MMMM Do, YYYY'));
 });
 
 //main runner
-$('.submit').click(function(){
+$('form').submit(function(e){
+    e.preventDefault();
     $('.list').empty();
-    $('numList').empty();
+
     let settings = {};
     let category = $('#category').val();
     settings.difficultyValue = $('#difficulty').val();
     settings.startDate = moment('3/30/1964').format('YYYY-MM-DD');
     settings.endDate = moment().format('YYYY-MM-DD');
 
-    if($('#startDate').val() !== '' && $('#endDate').val() !== ''){
+    if($('#startDate').val() !== '' || $('#endDate').val() !== ''){
         settings.startDate = moment($('#startDate').val()).format('YYYY-MM-DD');
         settings.endDate = moment($('#endDate').val()).format('YYYY-MM-DD');
     }
 
+    $('.progress').show();
     search(category, 0, settings);
 });
 
@@ -67,6 +70,7 @@ function search(category, offset, settings, notFound=true){
         success: function(categories){
             //display error msg since no data found
             if(categories == undefined || categories.length == 0){
+                $('.progress').hide();
                 $('.list').append(
                     $('<div>', {class: 'row error red darken-4 white-text'}).append(
                         $('<p>', {
@@ -91,6 +95,7 @@ function search(category, offset, settings, notFound=true){
                             dataType: 'JSON',
                             success: function(clues){
                                 //generate DOM elements for the clues found
+                                $('.progress').hide();
                                 createList(clues, settings);
                             }
                         });
@@ -108,13 +113,14 @@ function search(category, offset, settings, notFound=true){
 function createList(clues, settings){
     let bounds = getBounds(settings.difficultyValue);
     let lower = bounds[0], upper = bounds[1];
+    let count = 0;
 
-    $('.numList').text(clues.length + (clues.length == 1 ? ' Entry' : ' Entries'));
     clues.forEach(function(clue){
         let correctDifficulty = clue.value >= lower && clue.value <= upper;
         let correctDate = moment(clue.airdate).isBetween(settings.startDate, settings.endDate);
 
         if(clue.question !== "" && correctDifficulty && correctDate){
+            count++;
             let card = $('<div>', { class: 'card blue-grey darken-1'});
             let favorite = $('<a>').append()
             card.append(
@@ -155,4 +161,6 @@ function createList(clues, settings){
             $('.list').append($('<div>', { id: clue.id, class: 'row' }).append(card));
         }
     });
+
+    $('.numList').text(count + (count == 1 ? ' Entry' : ' Entries'));
 }
