@@ -4,6 +4,17 @@ html {
     font-family: 'Nunito', sans-serif;
 }
 
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+
 h1{
     font-weight: 600
 }
@@ -85,4 +96,9 @@ p{
     background-color: white;
     color: black;
     padding: 0.5em;
+    border-radius: 2.5em;
+}
+
+.page-footer{
+    padding-top: 0;
 }

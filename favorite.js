@@ -52,7 +52,7 @@ function updateCount(action){
         numFavorited--;
         if(numFavorited == 0){
             $('.numFavorited').empty();
-            $('no-fav').css('display', '');
+            $('.no-fav').show();
         }
         else
             $('.numFavorited').text(numFavorited + (numFavorited == 1 ? ' Entry' : ' Entries'));
