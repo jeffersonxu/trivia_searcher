@@ -1,14 +1,30 @@
-let offsets = [];
+//Generate a board when site loads
+$(document).ready(function(){
+    generateBoard();
+});
+
+$('.generateBoard').on('click', function(e){
+    generateBoard();
+});
+
+//Generates the Jeopardy Board (6 categories with 5 clues)
+function generateBoard() {
+    $('.categoryTitle, .q').empty();
+    for (var i = 0; i < 6; i++) {
+        getRandomClues(i);
+    }
+}
 
 //finds a random category and then the clues within that category
 //displays unique category titles and clues to DOM
-function randomCategory(rowNum){
+let offsets = [];
+function getRandomClues(rowNum){
     //max offset of categories is 18400
-    let num = Math.floor(Math.random() * 18400) + 1;
-    if(offsets.indexOf(num) === -1){
+    let offset = Math.floor(Math.random() * 18400) + 1;
+    if(offsets.indexOf(offset) === -1){
         $.ajax({
             url: url + 'categories',
-            data: { offset: num },
+            data: { offset: offset },
             type: 'GET',
             dataType: 'JSON',
             success: function(data){
@@ -31,6 +47,7 @@ function randomCategory(rowNum){
 
                             //shuffle array
                             let shuffled = clues.sort(() => 0.5 - Math.random());
+
                             //choose first 5 elements and sort by difficulty
                             clues = shuffled.slice(0, 5).sort(function(a, b){
                                 return a.value - b.value;
@@ -39,7 +56,8 @@ function randomCategory(rowNum){
                             //Add clues to DOM going down each column
                             for(var j = 0; j < 5; j++){
                                 $('.questions' + j).append($('<div>', {class: 'col s2'})
-                                    .append($('<p>').text(clues[j].question)));
+                                    .append($('<p>', {class: 'questionText'}).text(clues[j].question))
+                                    .append($('<p>', {class : 'ans hide'}).text(clues[j].answer.replace('<i>', '').replace('</i>', '').capitalize() + ' (' + difficulty(clues[j].value) + ')')));
                             }
                         }
                     })
@@ -49,13 +67,12 @@ function randomCategory(rowNum){
     }
 }
 
+$(document).on('click', 'p.questionText',function(e){
+    let ans = $(this).parent().find('p.hide').removeClass('hide');
+});
+
 function removeDuplicates(myArr, prop) {
     return myArr.filter((obj, pos, arr) => {
         return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
     });
-}
-
-//Generate 6 random categories
-for (var i = 0; i < 6; i++) {
-    randomCategory(i);
 }

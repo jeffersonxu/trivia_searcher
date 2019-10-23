@@ -18,13 +18,8 @@ $('form').submit(function(e){
     let settings = {};
     let category = $('#category').val();
     settings.difficultyValue = $('#difficulty').val();
-    settings.startDate = moment('3/30/1964').format('YYYY-MM-DD');
-    settings.endDate = moment().format('YYYY-MM-DD');
-
-    if($('#startDate').val() !== '' || $('#endDate').val() !== ''){
-        settings.startDate = moment($('#startDate').val()).format('YYYY-MM-DD');
-        settings.endDate = moment($('#endDate').val()).format('YYYY-MM-DD');
-    }
+    settings.startDate = ($('#startDate').val() === '') ? moment('3/30/1964').format('YYYY-MM-DD') : moment($('#startDate').val()).format('YYYY-MM-DD');
+    settings.endDate = ($('#endDate').val() === '') ? moment().format('YYYY-MM-DD') : moment($('#endDate').val()).format('YYYY-MM-DD');
 
     $('.progress').show();
     search(category, 0, settings);
@@ -58,6 +53,7 @@ String.prototype.capitalize = function() {
 }
 
 //recursive function that searches 100 entries (max capacity) at a time
+//until category is found
 function search(category, offset, settings, notFound=true){
     $.ajax({
         url: url + 'categories',
@@ -101,7 +97,7 @@ function search(category, offset, settings, notFound=true){
                         });
                     }
                 });
-                //search another 100 entries
+                //search another 100 entries if not found
                 if(notFound)
                     search(category, offset + 100, settings);
             }
@@ -110,6 +106,7 @@ function search(category, offset, settings, notFound=true){
 }
 
 //Creates DOM elements using Materialize components of the clues
+//Filters out clues based off settings (dates & difficulty)
 function createList(clues, settings){
     let bounds = getBounds(settings.difficultyValue);
     let lower = bounds[0], upper = bounds[1];
@@ -122,7 +119,7 @@ function createList(clues, settings){
         if(clue.question !== "" && correctDifficulty && correctDate){
             count++;
             let card = $('<div>', { class: 'card blue-grey darken-1'});
-            let favorite = $('<a>').append()
+
             card.append(
                 $('<div>', {class: 'card-content white-text'}).append(
                     $('<span>', {

@@ -11,6 +11,10 @@ h1{
 h3{
     padding-top: 0.5em;
 }
+p{
+    font-size: 1.2em;
+}
+
 .panel{
     padding-top: 2em;
 }
@@ -41,4 +45,44 @@ h3{
 }
 .category{
     padding-left: 3em;
+}
+
+#board{
+    padding-bottom: 4em;
+}
+
+#board .row{
+    margin-bottom: 0;
+}
+
+.categoryTitle{
+    background-color: #0d47a1;
+    margin-top: 3em;
+    font-weight: 600;
+    padding: 0.5em;
+    display: flex;
+    align-items: center;
+}
+
+.categoryTitle, .q{
+    text-align: center;
+}
+
+.q {
+    background-color: #0d47a1;
+    border-style: solid;
+    border-width: 2px;
+    display: flex;
+    align-items: center;
+}
+
+.questionText {
+    color: #ffeb3b;
+    padding: 0.5em;
+}
+
+.ans{
+    background-color: white;
+    color: black;
+    padding: 0.5em;
 }

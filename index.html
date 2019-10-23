@@ -12,8 +12,8 @@
     <h1>Find trivia questions</h1>
 
     <div class="row">
-        <h3>Parameters</h3>
-        <p>Feel free to choose any combination of parameters you like. Category is a required field. The default start date is <b>March 30th, 1964</b> (the first airing of Jeopardy) and deafult end date is today's  date of <b><span class="currentDate"></span></b> if left blank.</p>
+        <h3>Instructions</h3>
+        <p>Feel free to choose any combination of parameters you like. Category is a required field. The default start date is <b>March 30th, 1964</b> (the first airing of Jeopardy) and default end date is today's date of <b><span class="currentDate"></span></b> if either are blank.</p>
 
         <form>
             <div class="input-field col s6">
@@ -75,22 +75,26 @@
     </div>
 
     <div id="board">
-        <div class="row categoryTitle">
+        <h3>Jeopardy Board Simulation</h3>
+        <h5>Click on the question to reveal the answer!</h5>
+        <button type="submit" class="generateBoard waves-effect waves-light purple darken-4 btn-large">Generate New Board</button>
+
+        <div class="row categoryTitle white-text">
         </div>
 
-        <div class="row questions0">
+        <div class="row q questions0">
         </div>
 
-        <div class="row questions1">
+        <div class="row q questions1">
         </div>
 
-        <div class="row questions2">
+        <div class="row q questions2">
         </div>
 
-        <div class="row questions3">
+        <div class="row q questions3">
         </div>
 
-        <div class="row questions4">
+        <div class="row q questions4">
         </div>
     </div>
 

@@ -10,15 +10,13 @@ $('.list').on('click', '.favorite', function(event){
     let id = '#' + $(this).attr('id').replace('fav-', '');
     $('#favorite').append($(id).clone());
 
-    //Update Count
-    numFavorited++;
-    $('.numFavorited').text(numFavorited + (numFavorited == 1 ? ' Entry' : ' Entries'));
-    $('.no-fav').hide();
+    updateCount('add');
 });
 
 //Unfavorited
 //Case 1: Unfavoriting via Entires tab
 $('.list').on('click', '.favorite_selected', function(event){
+    //Update icon
     $(this).text('favorite_border');
     $(this).removeClass('favorite_selected');
     $(this).addClass('favorite');
@@ -27,11 +25,12 @@ $('.list').on('click', '.favorite_selected', function(event){
     let id = $(this).attr('id').replace('fav-', '');
     $('#favorite #' + id).remove();
 
-    updateCount();
+    updateCount('remove');
 });
 
 //Case 2: Unfavoriting via Favorites tab
 $('#favorite').on('click', '.favorite_selected', function(event){
+    //Update icon
     $(this).text('favorite_border');
     $(this).removeClass('favorite_selected');
     $(this).addClass('favorite');
@@ -45,15 +44,21 @@ $('#favorite').on('click', '.favorite_selected', function(event){
     $('#listWrapper ' + '#fav-' + id).removeClass('favorite_selected');
     $('#listWrapper ' + '#fav-' + id).addClass('favorite');
 
-    updateCount();
+    updateCount('remove');
 });
 
-function updateCount(){
-    numFavorited--;
-    if(numFavorited == 0){
-        $('.numFavorited').empty();
-        $('no-fav').css('display', '');
-    }
-    else
+function updateCount(action){
+    if(action === 'remove'){
+        numFavorited--;
+        if(numFavorited == 0){
+            $('.numFavorited').empty();
+            $('no-fav').css('display', '');
+        }
+        else
+            $('.numFavorited').text(numFavorited + (numFavorited == 1 ? ' Entry' : ' Entries'));
+    } else {
+        numFavorited++;
         $('.numFavorited').text(numFavorited + (numFavorited == 1 ? ' Entry' : ' Entries'));
+        $('.no-fav').hide();
+    }
 }
