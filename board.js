@@ -25,6 +25,9 @@ function getRandomClues(rowNum){
         $.ajax({
             url: url + 'categories',
             data: { offset: offset },
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            },
             type: 'GET',
             dataType: 'JSON',
             success: function(data){
@@ -38,6 +41,9 @@ function getRandomClues(rowNum){
                     $.ajax({
                         url: url +  'clues',
                         data: {category: data[0].id},
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                        },
                         type: 'GET',
                         dataType: 'JSON',
                         success: function(clues){

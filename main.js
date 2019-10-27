@@ -1,4 +1,4 @@
-const url = "http://jservice.io/api/";
+const url = "https://cors-anywhere.herokuapp.com/http://jservice.io/api/";
 
 //initialize Materialize components
 $(document).ready(function(){
@@ -61,6 +61,9 @@ function search(category, offset, settings, notFound=true){
             "count" : 100,
             "offset" : offset,
         },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+        },
         type: 'GET',
         dataType: 'JSON',
         success: function(categories){
@@ -87,6 +90,9 @@ function search(category, offset, settings, notFound=true){
                         $.ajax({
                             url: url + 'clues',
                             data: { "category" : c.id },
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                            },
                             type: 'GET',
                             dataType: 'JSON',
                             success: function(clues){
