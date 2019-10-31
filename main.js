@@ -14,6 +14,7 @@ $(document).ready(function(){
 $('form').submit(function(e){
     e.preventDefault();
     $('.list').empty();
+    $('.numList').empty();
 
     let settings = {};
     let category = $('#category').val();
@@ -21,11 +22,14 @@ $('form').submit(function(e){
     settings.startDate = ($('#startDate').val() === '') ? moment('3/30/1964').format('YYYY-MM-DD') : moment($('#startDate').val()).format('YYYY-MM-DD');
     settings.endDate = ($('#endDate').val() === '') ? moment().format('YYYY-MM-DD') : moment($('#endDate').val()).format('YYYY-MM-DD');
 
+    //Display Materialize progress bar while searching
     $('.progress').show();
     search(category, 0, settings);
 });
 
-//helper functions
+//Helper Functions
+
+//given a clue value, returns difficulty
 function difficulty(num){
     if(num <= 333)
         return "Easy";
@@ -35,6 +39,7 @@ function difficulty(num){
         return "Hard";
 }
 
+//returns value range for each difficulty
 function getBounds(difficulty){
     let lower = 0, upper = 1000;
     if(difficulty === 'easy')
@@ -48,12 +53,13 @@ function getBounds(difficulty){
     return [lower, upper];
 }
 
+//capitalizes strings
 String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
 }
 
 //recursive function that searches 100 entries (max capacity) at a time
-//until category is found
+//stops once category is found
 function search(category, offset, settings, notFound=true){
     $.ajax({
         url: url + 'categories',
@@ -81,8 +87,7 @@ function search(category, offset, settings, notFound=true){
                             class: 'medium material-icons',
                             text: 'sentiment_very_dissatisfied'
                 })));
-            }
-            else {
+            } else {
                 //parse the 100 entries for category
                 categories.forEach(function(c){
                     if(c.title !== null && (c.title.toLowerCase().includes(category.toLowerCase()))){
@@ -126,6 +131,7 @@ function createList(clues, settings){
             count++;
             let card = $('<div>', { class: 'card blue-grey darken-1'});
 
+            //front card (question)
             card.append(
                 $('<div>', {class: 'card-content white-text'}).append(
                     $('<span>', {
@@ -146,6 +152,7 @@ function createList(clues, settings){
                                 text: 'Aired: ' + moment(clue.airdate).format('MMMM Do, YYYY')
             })));
 
+            //back card (answer)
             card.append(
                 $('<div>', { class: 'card-reveal'}).append(
                     $('<span>', {
