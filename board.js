@@ -1,4 +1,3 @@
-//Generate a board when site loads
 $(document).ready(function(){
     generateBoard();
 });
@@ -7,7 +6,7 @@ $('.generateBoard').on('click', function(e){
     generateBoard();
 });
 
-//Generates the Jeopardy Board (6 categories with 5 clues)
+//Generates the Jeopardy Board (6 random categories with 5 clues associated)
 function generateBoard() {
     $('.categoryTitle, .q').empty();
     for (var i = 0; i < 6; i++) {
@@ -33,11 +32,6 @@ function getRandomClues(rowNum){
             success: function(data){
                 if(data && data[0].clues_count >= 5){
                     offsets.push(data[0].id);
-
-                    //Add category title to DOM
-                    $('.categoryTitle').append($('<div>', {class: 'col s2'})
-                        .append($('<h6>').text(data[0].title)));
-
                     $.ajax({
                         url: url +  'clues',
                         data: {category: data[0].id},
@@ -51,20 +45,30 @@ function getRandomClues(rowNum){
                             clues = removeDuplicates(clues.filter(function(val){
                                 return val.question !== '' }), 'question');
 
-                            //shuffle array
-                            let shuffled = clues.sort(() => 0.5 - Math.random());
+                            //if there are not 6 questions after cleaning, find new category
+                            if(clues.length < 5){
+                                getRandomClues(rowNum);
+                            } else {
+                                //Add category title to DOM
+                                $('.categoryTitle').append($('<div>', {class: 'col s2'})
+                                    .append($('<h6>').text(data[0].title)));
 
-                            //choose first 5 elements and sort by difficulty
-                            clues = shuffled.slice(0, 5).sort(function(a, b){
-                                return a.value - b.value;
-                            });
+                                //shuffle array
+                                let shuffled = clues.sort(() => 0.5 - Math.random());
 
-                            //Add clues to DOM going down each column
-                            for(var j = 0; j < 5; j++){
-                                $('.questions' + j).append($('<div>', {class: 'col s2'})
-                                    .append($('<p>', {class: 'questionText'}).text(clues[j].question))
-                                    .append($('<p>', {class : 'ans hide'}).text(clues[j].answer.replace('<i>', '').replace('</i>', '').capitalize() + ' (' + difficulty(clues[j].value) + ')')));
+                                //choose first 5 elements and sort by difficulty
+                                clues = shuffled.slice(0, 5).sort(function(a, b){
+                                    return a.value - b.value;
+                                });
+
+                                //Add clues to DOM going down each column
+                                for(var j = 0; j < 5; j++){
+                                    $('.questions' + j).append($('<div>', {class: 'col s2'})
+                                        .append($('<p>', {class: 'questionText'}).text(clues[j].question))
+                                        .append($('<p>', {class : 'ans hide'}).text(clues[j].answer.replace('<i>', '').replace('</i>', '').capitalize() + ' (' + difficulty(clues[j].value) + ')')));
+                                }
                             }
+
                         }
                     })
                 }
