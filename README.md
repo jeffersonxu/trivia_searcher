@@ -3,4 +3,4 @@ Web application that displays trivia questions based off search parameters such 
 
 This was built using plain Javascript with [jQuery](https://jquery.com/), [Moment](https://momentjs.com/), [Materialize](https://materializecss.com/), and [CORS anywhere](https://github.com/Rob--W/cors-anywhere).
 
-A demo of the site can be viewed [here](https://trivia-searcher.herokuapp.com)!
+A demo of the site can be viewed [here](https://willing-duck.surge.sh/)!
